@@ -1,0 +1,11 @@
+{
+    "alias_file":"aliases",
+    "filtering":[
+        "FILTER_Cisco.csv",
+	"FILTER_Iptables.csv"
+    ],
+    "nat":[
+        "NAT_Iptables.csv"
+    ],
+    "network_prefix":"10.0.0.0/8"
+}

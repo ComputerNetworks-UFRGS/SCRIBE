@@ -1,0 +1,6 @@
+# networks
+my_network   10.0.0.0/8
+
+# ips
+web_server  10.0.1.16
+ssh_server  10.0.1.15
