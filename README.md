@@ -19,7 +19,7 @@ https://github.com/rafaelhribeiro/fws-export#installation
 After FWS is running, clone our repository inside FWS solution:
 
     cd fws
-    git clone https://github.com/rafaelhribeiro/Reverse-engineering-network-intents
+    git clone https://github.com/rafaelhribeiro/SCRIBE
 
 
 ### Configuration
