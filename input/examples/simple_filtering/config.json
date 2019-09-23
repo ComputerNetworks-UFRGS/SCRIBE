@@ -1,0 +1,7 @@
+{
+    "alias_file":"interface_aliases",
+    "filtering":[
+        "FILTER.csv"
+    ],
+    "network_prefix":"172.16.1.0/24"
+}
