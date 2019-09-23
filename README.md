@@ -11,7 +11,7 @@ Our solutions runs on top of FWS. Firstly, the FWS must installed and running in
 
 ##### Step #2: Install FWS
 
-Follow installation instructions from the FWS repository, as described in link below
+Follow installation instructions from the FWS repository, as described in the following link
 https://github.com/rafaelhribeiro/fws-export#installation
 
 ##### Step #3: Clone this repo
