@@ -3,6 +3,7 @@
 class Nile:
     def __init__(self, entities):
         self.entities = entities
+        self.intent_number = 1
         self.nile_symbols = {
             'src': 'from endpoint',
             'dst': 'to endpoint',
@@ -48,4 +49,6 @@ class Nile:
         return mapped
 
     def create_header(self, intent_name='firewallIntent'):
-        return 'define intent {}:'.format(intent_name)
+        header = 'define intent {}{}:'.format(intent_name, self.intent_number)
+        self.intent_number += 1
+        return header
