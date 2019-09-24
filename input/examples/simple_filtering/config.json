@@ -3,5 +3,7 @@
     "filtering":[
         "FILTER.csv"
     ],
-    "network_prefix":"172.16.1.0/24"
+    "network_prefixes":[
+        "172.16.1.0/24"
+    ]
 }

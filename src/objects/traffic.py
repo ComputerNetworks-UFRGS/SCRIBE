@@ -3,20 +3,30 @@
 import ipaddress
 
 class Traffic:
-    def __init__(self, src, dst, network):
+    def __init__(self, src, dst, networks):
         self.src = src
         self.dst = dst
-        self.network = network
+        self.networks = networks
 
     def is_input(self):
-        return self.src == '*' and (self.dst == self.network or self.dst in self.network)
+        for network in self.networks:
+            input_condition = self.src == '*' and (self.dst == network or self.dst in network)
+            if input_condition:
+                return input_condition
+        return False
     
     def is_output(self):
+        output_condition = False
         if self.dst == '*':
-            if self.src == self.network:
-                return True
-            if isinstance(self.src,ipaddress.IPv4Address) and self.src in self.network:
-                return True
+            for network in self.networks:
+                if self.src == network:
+                    output_condition = True
+                if isinstance(self.src,ipaddress.IPv4Address) and self.src in network:
+                    output_condition = True
+        return output_condition
 
     def is_internal(self):
-        return self.src in self.network and self.dst in self.network
+        internal_condition = False
+        for network in self.networks:
+            internal_condition = self.src in network and self.dst in network
+        return internal_condition
