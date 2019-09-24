@@ -25,6 +25,10 @@ After FWS is running, clone our repository inside FWS solution:
 
 Follow installation instructions from the Pipenv official repository in the following link https://github.com/pypa/pipenv#installation
 
+After, run the following command
+
+    pipenv install
+
 ### Configuration
 
 SCRIBE expects a JSON file indicating the CSV for filtering and NAT, an alias file for interfaces (optional) and the network prefixes. A configuration example is listed below:
