@@ -7,7 +7,7 @@ Our solutions runs on top of FWS. Firstly, the FWS must installed and running in
 
 ##### Step #1: Clone FWS repository:
 
-    git clone https://github.com/rafaelhribeiro/fws
+    git clone https://github.com/ComputerNetworks-UFRGS/fws-export
 
 ##### Step #2: Install FWS
 
@@ -19,7 +19,7 @@ https://github.com/rafaelhribeiro/fws-export#installation
 After FWS is running, clone our repository inside FWS solution:
 
     cd fws
-    git clone https://github.com/rafaelhribeiro/SCRIBE
+    git clone https://github.com/ComputerNetworks-UFRGS/SCRIBE
     
 #### Step #4: Install Pipenv
 
