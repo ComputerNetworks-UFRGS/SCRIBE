@@ -1,0 +1,19 @@
+!--- (NAT) Interfaces
+! ext
+interface GigabitEthernet1
+  ip address 172.16.1.15 255.255.255.0
+  no shutdown
+! dtn1
+interface GigabitEthernet2
+  ip address 172.16.1.16 255.255.255.0
+! dtn2
+
+!--- Default Route
+ip route 0.0.0.0 0.0.0.0 172.16.1.15
+
+!--- Allow incoming traffic to DTNs
+access-list 130 permit tcp 143.54.0.0 host 172.16.1.15
+access-list 130 permit tcp 184.12.0.0 host 172.16.1.16
+!
+end
+

@@ -1,0 +1,36 @@
+### NAT rules ###
+*nat
+# Default policy ACCEPT in nat chains
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+
+# Requirement 2: Redirect incoming HTTP and HTTPS connections to host 10.0.1.8 (DNAT)
+-A PREROUTING -p tcp -d 172.16.1.5 --dport  80 -j DNAT --to 10.0.1.8
+-A PREROUTING -p tcp -d 172.16.1.5 --dport 443 -j DNAT --to 10.0.1.8
+
+# Requirement 4: Connections towards the Internet exit with source address 172.16.1.5 (SNAT)
+-A POSTROUTING -s 10.0.0.0/8 ! -d 10.0.0.0/8 -j SNAT --to 172.16.1.5
+
+COMMIT
+
+### Filtering rules ###
+*filter
+# Default policy DROP in filtering chains
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+
+# Allow established packets
+-A FORWARD -m state --state ESTABLISHED -j ACCEPT
+-A INPUT   -m state --state ESTABLISHED -j ACCEPT
+
+# Allow arbitrary traffic between internal networks
+-A FORWARD -s 10.0.0.0/8 -d 10.0.0.0/8 -j ACCEPT
+
+# Allow HTTP/HTTPS incoming traffic to the corresponding hosts
+-A FORWARD -p tcp -d 10.0.1.8 --dport  80 -j ACCEPT
+-A FORWARD -p tcp -d 10.0.1.8 --dport 443 -j ACCEPT
+
+COMMIT

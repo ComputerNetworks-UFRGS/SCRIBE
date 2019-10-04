@@ -1,0 +1,12 @@
+# networks
+my_network   10.0.0.0/8
+
+# ips
+web_server      10.0.1.8
+workstation1    10.0.1.10
+
+dtn1            172.16.1.15
+dtn2            172.16.1.16
+
+university_A    143.54.0.0/16
+university_B    184.12.0.0/16

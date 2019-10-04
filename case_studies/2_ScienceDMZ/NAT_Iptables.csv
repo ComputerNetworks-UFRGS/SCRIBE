@@ -1,0 +1,4 @@
+"srcIp","srcPort","srcIp'","srcPort'","dstIp'","dstPort'","dstIp","dstPort","srcMac","dstMac","protocol","state"
+"*","*","-","-","10.0.1.8","-","172.16.1.5","443","*","*","tcp","NEW"
+"","","","","","","","80","","","",""
+"*","*","*","-","*","-","*","*","*","*","*","ESTABLISHED"
