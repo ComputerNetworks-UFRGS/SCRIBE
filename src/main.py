@@ -8,6 +8,7 @@ import ipaddress
 
 import config
 from objects.port import Port
+from objects.alias import Alias
 from firewall.filtering import Filtering
 from translation.nile import Nile
 
@@ -18,6 +19,19 @@ def grouping(entities, filter_entities):
             entities[(entity['src'], entity['dst'], entity['action'])] = [entity['traffic']]
         else:
             entities[k].append(entity['traffic'])
+
+def aggregation(entities, aliasfile):
+    alias = Alias(aliasfile)
+    aliases = alias.read_aliases()
+    for entity in entities:
+        src, dst, action = entity
+        traffic = entities[(src, dst, action)]
+        del entities[(src, dst, action)]
+        if src in aliases:
+            src = aliases[src]
+        if dst in aliases:
+            dst = aliases[dst]
+        entities[(src, dst, action)] = traffic
 
 def get_path(file):
     return '/'.join(file.split('/')[:-1]) + '/'
@@ -46,6 +60,8 @@ if __name__ == '__main__':
         filter_entities = mfilter.export_entities()
 
         grouping(entities, filter_entities)
+
+    aggregation(entities, aliasfile)
 
     nile = Nile(entities)
     output = nile.translation()
