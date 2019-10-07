@@ -10,7 +10,13 @@ class Traffic:
 
     def is_input(self):
         for network in self.networks:
-            input_condition = self.src == '*' and (self.dst == network or self.dst in network)
+            input_condition = False
+            if isinstance(self.src, str) and len(self.src.split('/')) > 1:
+                self.src = ipaddress.ip_network(self.src)
+                if self.src != network:
+                    input_condition = (self.dst == network or self.dst in network)
+            else:
+                input_condition = self.src == '*' and (self.dst == network or self.dst in network)
             if input_condition:
                 return input_condition
         return False

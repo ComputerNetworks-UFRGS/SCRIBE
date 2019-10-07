@@ -15,3 +15,6 @@ class IP:
             return True
         except:
             return False
+
+    def __str__(self):
+        return str(self.address)
