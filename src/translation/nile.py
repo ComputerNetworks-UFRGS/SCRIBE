@@ -74,7 +74,7 @@ class Nile:
     
     def nile_map_params(self, key, traffic, target):
         mapped = "\n\t{} ('{}')".format(self.nile_symbols['for'], traffic)
-        mapped += "\n\t{} ('{}')'\n\n'".format(self.nile_symbols[key], target)
+        mapped += "\n\t{} ('{}')\n\n".format(self.nile_symbols[key], target)
         return mapped
 
     def create_header(self, intent_name='firewallIntent'):
