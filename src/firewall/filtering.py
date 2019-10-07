@@ -52,12 +52,12 @@ class Filtering:
                 port_obj = port.Port(rule[7])
                 port_obj.detect_service_by_port()
                 service_name = port_obj.get_name()
-                entities.append(self.generate_entity('internet', rule[6], 'allow', service_name))
+                entities.append(self.generate_entity('internet', str(dst_ip), 'allow', service_name))
 
             elif traffic_classification.is_output():
                 port_obj = port.Port(rule[7])
                 port_obj.detect_service_by_port()
                 service_name = port_obj.get_name()
-                entities.append(self.generate_entity(rule[0], 'internet', 'allow', service_name))
+                entities.append(self.generate_entity(str(src_ip), 'internet', 'allow', service_name))
 
         return entities
