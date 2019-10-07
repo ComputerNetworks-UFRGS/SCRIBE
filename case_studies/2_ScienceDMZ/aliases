@@ -2,6 +2,8 @@
 my_network   10.0.0.0/8
 
 # ips
+firewall        172.16.1.5
+
 web_server      10.0.1.8
 workstation1    10.0.1.10
 
