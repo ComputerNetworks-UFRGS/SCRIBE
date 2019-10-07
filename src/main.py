@@ -10,6 +10,7 @@ import config
 from objects.port import Port
 from objects.alias import Alias
 from firewall.filtering import Filtering
+from firewall.nat import NAT
 from translation.nile import Nile
 
 def grouping(entities, filter_entities):
@@ -19,6 +20,14 @@ def grouping(entities, filter_entities):
             entities[(entity['src'], entity['dst'], entity['action'])] = [entity['traffic']]
         else:
             entities[k].append(entity['traffic'])
+
+def grouping_nat(entities, nat_entities):
+    for entity in nat_entities:
+        k = (entity['src'], entity['dst'], entity['action'])
+        if k not in entities:
+            entities[k] = [(entity['traffic'], entity['param'])]
+        else:
+            entities[k].append((entity['traffic'], entity['param']))
 
 def aggregation(entities, aliasfile):
     alias = Alias(aliasfile)
@@ -31,6 +40,16 @@ def aggregation(entities, aliasfile):
             src = aliases[src]
         if dst in aliases:
             dst = aliases[dst]
+
+        for i in range(len(traffic)):
+            t = traffic[i]
+
+            if isinstance(t, tuple):
+                proto, nat_addr = t
+                if nat_addr in aliases:
+                    nat_addr = aliases[nat_addr]
+                traffic[i] = (proto, nat_addr)
+
         entities[(src, dst, action)] = traffic
 
 def get_path(file):
@@ -60,6 +79,15 @@ if __name__ == '__main__':
         filter_entities = mfilter.export_entities()
 
         grouping(entities, filter_entities)
+
+    for nat_file in config['nat']:
+        csvfile = open(rel_path + nat_file)
+
+        mnat = NAT(csvfile, NETWORK_PREFIXES)
+        mnat.read_csv()
+        nat_entities = mnat.export_entities()
+
+        grouping_nat(entities, nat_entities)
 
     aggregation(entities, aliasfile)
 
